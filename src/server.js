@@ -63,7 +63,9 @@ app.post("/parse_js", async (req, res) => {
     } else {
       processedCode = PluginCommon(targetScript);
     }
-
+    if (processedCode == null) {
+      processedCode = targetScript;
+    }
     // 使用正则表达式提取函数 a 的参数
     const paramRegex = /a\(\s*["']([^"']+)["']\s*,\s*["']([^"']+)["']\s*,\s*["']([^"']+)["']\s*\)/;
     const paramMatch = paramRegex.exec(processedCode);
