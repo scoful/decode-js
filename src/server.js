@@ -67,14 +67,15 @@ app.post("/parse_js", async (req, res) => {
       processedCode = targetScript;
     }
     // 使用正则表达式提取函数 a 的参数
-    const paramRegex = /a\(\s*["']([^"']+)["']\s*,\s*["']([^"']+)["']\s*,\s*["']([^"']+)["']\s*\)/;
+    const paramRegex = /a\(["']([^"']+)["']\s*,\s*["']([^"']+)["']\s*,\s*["']([^"']+)["']\s*,\s*["']([^"']+)["']\s*\)/;
     const paramMatch = paramRegex.exec(processedCode);
 
     if (paramMatch) {
       const params = {
         aid: paramMatch[1],
         sessionId: paramMatch[2],
-        twoLevelDomain: paramMatch[3]
+        twoLevelDomain: paramMatch[4],
+        salt: paramMatch[3]
       };
       return res.json({ params });
     } else {
